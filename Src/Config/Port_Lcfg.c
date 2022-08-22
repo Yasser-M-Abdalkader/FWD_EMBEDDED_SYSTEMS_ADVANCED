@@ -1,12 +1,11 @@
 /**********************************************************************************************************************
  *  FILE DESCRIPTION
  *  -----------------------------------------------------------------------------------------------------------------*/
-
-/**        \file  IntCrtl.c
- *        \brief  Nested Vector Interrupt Controller Driver
+/**        \file  Port_Lcfg.c
+ *        \brief  
  *
- *      \details  The Driver Configure All MCU interrupts Priority into gorups and subgroups
- *                Enable NVIC Interrupt Gate for Peripherals
+ *      \details  
+ *
  *
  *********************************************************************************************************************/
 
@@ -14,12 +13,13 @@
  *  INCLUDES
  *********************************************************************************************************************/
 #include "Std_Types.h"
-#include "IntCtrl.h"
-#include "Mcu_Hw.h"
+#include "Port_Cfg.h"
+#include "Port_Types.h"
+
 
 /**********************************************************************************************************************
 *  LOCAL MACROS CONSTANT\FUNCTION
-*********************************************************************************************************************/	
+*********************************************************************************************************************/
 
 /**********************************************************************************************************************
  *  LOCAL DATA 
@@ -28,7 +28,23 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA
  *********************************************************************************************************************/
-
+Port_ConfigType Port_Confi[PORT_PINS_NUMBER] = 
+{
+    {
+        .PortPin = PA0,
+        .PortPinDirection = PORT_PIN_DIRECTION_OUTPUT,
+        .PortPinLevelValue = STD_HIGH,
+        .Port_PinOutputCurrent = 0,
+        .Port_PinInternalAttach = 0
+    },
+    {
+        .PortPin = PA0,
+        .PortPinDirection = PORT_PIN_DIRECTION_OUTPUT,
+        .PortPinLevelValue = STD_HIGH,
+        .Port_PinOutputCurrent = 0,
+        .Port_PinInternalAttach = 0
+    }
+};
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
@@ -43,38 +59,18 @@
 
 
 /******************************************************************************
-* \Syntax          : void IntCrtl_Init(void)                                      
-* \Description     : initialize Nvic\SCB Module by parsing the Configuration 
-*                    into Nvic\SCB registers                                    
+* \Syntax          : Std_ReturnType FunctionName(AnyType parameterName)        
+* \Description     : Describe this service                                    
 *                                                                             
 * \Sync\Async      : Synchronous                                               
 * \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : None                     
+* \Parameters (in) : parameterName   Parameter Describtion                     
 * \Parameters (out): None                                                      
-* \Return value:   : None
+* \Return value:   : Std_ReturnType  E_OK
+*                                    E_NOT_OK                                  
 *******************************************************************************/
-void IntCrtl_Init(void)
-{
 
-    uint8 uint8ArrInterrupts[INTCTRL_PERI_EN_NUMBER] = INTCTRL_PERI_EN_ARR;
-
-	/*TODO Configure Grouping\SubGrouping System in APINT register in SCB*/
-    uint32 uint32LocalAPINT = INTCTRL_PRI_LEVEL;
-    uint32LocalAPINT <<= 8;
-    uint32LocalAPINT |= 0x05FA0000;
-    APINT = uint32LocalAPINT; 
-    /*TODO : Assign Group\Subgroup priority in NVIC_PRIx Nvic and SCB_SYSPRIx Registers*/ 
-
-	/*TODO : Enable\Disable based on user configurations in NVIC_ENx and SCB_Sys Registers */
-    for (uint8 uint8LocalCounter = 0; uint8LocalCounter < INTCTRL_PERI_EN_NUMBER; uint8LocalCounter++)
-    {
-        uint8 uint8LocalEnReg = uint8ArrInterrupts[uint8LocalCounter]/32;
-        uint8 uint8LocalEnBit = uint8ArrInterrupts[uint8LocalCounter]%32;
-        EN->ENReg[uint8LocalEnReg] = ENABLE<<uint8LocalEnBit;
-    }
-
-}
 
 /**********************************************************************************************************************
- *  END OF FILE: IntCrtl.c
+ *  END OF FILE: FileName.c
  *********************************************************************************************************************/

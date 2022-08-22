@@ -1,46 +1,89 @@
 /**********************************************************************************************************************
+
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
- *         File:  Std_Types.h
- *    Component:  -
+ *         File:  Port_Types.h
  *       Module:  -
  *
- *  Description:  Provision of Standard Types
- *
+ *  Description:  <Write File DESCRIPTION here>     
+ *  
  *********************************************************************************************************************/
-
-
-
-#ifndef STD_TYPES_H
-#define STD_TYPES_H
+#ifndef Port_Types_H
+#define Port_Types_H
 
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
-
-# include "Platform_Types.h"
-# include "Compiler.h"
+#include "Std_Types.h"
 
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
 
-# define STD_HIGH     1u /* Physical state 5V or 3.3V */
-# define STD_LOW      0u /* Physical state 0V */
 
-# define STD_ACTIVE   1u /* Logical state active */
-# define STD_IDLE     0u /* Logical state idle */
+/**********************************************************************************************************************
+ *  GLOBAL FUNCTION MACROS
+ *********************************************************************************************************************/
 
-# define STD_ON       1u
-# define STD_OFF      0u
 
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
+typedef enum
+{
+    PA0 = 0, PA1, PA2, PA3, PA4, PA5, PA6, PA7,
+    PB0, PB1, PB2, PB3, PB4, PB5, PB6, PB7,
+    PC0, PC1, PC2, PC3, PC4, PC5, PC6, PC7,
+    PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7,
+    PE0, PE1, PE2, PE3, PE4, PE5,
+    PF0 = 40, PF1, PF2, PF3, PF4
+}Port_PinType;
 
-typedef uint8 Std_ReturnType;
-#define E_OK          0u
-#define E_NOT_OK      1u
+typedef enum
+{
+    PORTA = 0,
+    PORTB,
+    PORTC,
+    PORTD,
+    PORTE,
+    PORTF
+}Port_PortType;
+
+typedef enum
+{
+    PORT_PIN_DIRECTION_INPUT = 0,
+    PORT_PIN_DIRECTION_OUTPUT
+}Port_PinDirectionType;
+
+typedef enum
+{
+
+}Port_PinModeType;
+
+typedef enum
+{
+    PORT_PUR = 0,
+    PORT_PDR,
+    PORT_DIS_RESISTOR
+
+}Port_PinInternalAttachType;
+
+typedef enum
+{
+    PORT_DRV2 = 0,
+    PORT_DRV4,
+    PORT_DRV8,
+}Port_PinOutputCurrentType;
+
+typedef struct
+{
+    Port_PinType    PortPin;
+    uint8 PortPinLevelValue;
+    Port_PinDirectionType   PortPinDirection;
+    Port_PinInternalAttachType  Port_PinInternalAttach;
+    Port_PinOutputCurrentType   Port_PinOutputCurrent;
+}Port_ConfigType;
+
 
 
 /**********************************************************************************************************************
@@ -52,8 +95,9 @@ typedef uint8 Std_ReturnType;
  *  GLOBAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
 
+ 
+#endif  /* Port_Types_H */
 
-#endif /* STD_TYPES_H */
 /**********************************************************************************************************************
- *  END OF FILE: Std_Types.h
+ *  END OF FILE: Port_Types.h
  *********************************************************************************************************************/
