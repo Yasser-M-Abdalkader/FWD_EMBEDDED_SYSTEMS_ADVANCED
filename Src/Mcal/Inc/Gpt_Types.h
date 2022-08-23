@@ -2,28 +2,24 @@
 
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
- *         File:  IntCtrl_Cfg.h
+ *         File:  Gpt_Types.h
  *       Module:  -
  *
- *  Description:  Configuration file for Interrupt control register   
+ *  Description:  <Write File DESCRIPTION here>     
  *  
  *********************************************************************************************************************/
-#ifndef INTCTRL_CFG_H
-#define INTCTRL_CFG_H
+#ifndef Gpt_Types_H
+#define Gpt_Types_H
 
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
 #include "Std_Types.h"
-#include "IntCtrl_Types.h"
 
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
-#define INTCTRL_PERI_EN_NUMBER  1
-#define INTCTRL_PERI_EN_ARR  {INTCTRL_TIMER0B} 
 
-#define INTCTRL_PRI_LEVEL   INCTRL_1GROUPS_8SUB
 
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
@@ -33,11 +29,58 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
+typedef struct 
+{
+    Gpt_ChannelType ChannelID;
+    Gpt_ChannelTickFrequencyType    Gpt_ChannelTickFrequency;
+    Gpt_ValueType    GptChannelTickValueMax;
+    Gpt_ModeType    GptChannelMode;
+}Gpt_ConfigType;
 
 
- 
-#endif  /* INTCTRL_CFG_H */
+typedef enum
+{
+    TIMER0 = 0,
+    TIMER1,
+    TIMER2,
+    TIMER3,
+    TIMER4,
+    TIMER5,
+
+    WIDE_TIMER0,
+    WIDE_TIMER1,
+    WIDE_TIMER2,
+    WIDE_TIMER3,
+    WIDE_TIMER4,
+    WIDE_TIMER5,
+    
+}Gpt_ChannelType;
+
+typedef uint32 Gpt_ValueType;
+typedef uint8   Gpt_ChannelTickFrequencyType;
+
+
+typedef enum
+{
+    GPT_MODE_NORMAL = 0,
+    GPT_MODE_SLEEP
+}Gpt_ModeType;
+
+
+typedef uint8 Gpt_PredefTimerType;
 
 /**********************************************************************************************************************
- *  END OF FILE: IntCtrl_Cfg.h
+ *  GLOBAL DATA PROTOTYPES
+ *********************************************************************************************************************/
+
+ 
+/**********************************************************************************************************************
+ *  GLOBAL FUNCTION PROTOTYPES
+ *********************************************************************************************************************/
+
+ 
+#endif  /* Gpt_Types_H */
+
+/**********************************************************************************************************************
+ *  END OF FILE: Gpt_Types.h
  *********************************************************************************************************************/

@@ -93,6 +93,37 @@ typedef struct
     uint32  GPIOPCellID3;
 }GPIO_RegisterType;
 
+typedef struct 
+{
+    uint32 GPTMCFG;
+    uint32 GPTMTAMR;
+    uint32 GPTMTBMR;
+    uint32 GPTMCTL;
+    uint32 GPTMSYNC;
+    uint32 GPTMIMR;
+    uint32 GPTMRIS;
+    uint32 GPTMMIS;
+    uint32 GPTMICR;
+    uint32 GPTMTAILR;
+    uint32 GPTMTBILR;
+    uint32 GPTMTAMATCHR;
+    uint32 GPTMTBMATCHR;
+    uint32 GPTMTAPR;
+    uint32 GPTMTBPR;
+    uint32 GPTMTAPMR;
+    uint32 GPTMTBPMR;
+    uint32 GPTMTAR;
+    uint32 GPTMTBR;
+    uint32 GPTMTAV;
+    uint32 GPTMTBV;
+    uint32 GPTMRTCPD;
+    uint32 GPTMTAPS;
+    uint32 GPTMTBPS;
+    uint32 GPTMTAPV;
+    uint32 GPTMTBPV;
+}GPT_RegisterType;
+
+
 
 
 
@@ -102,6 +133,20 @@ typedef struct
  *********************************************************************************************************************/
 #define CORTEXM4_PERI_BASE_ADDRESS             0xE000E000
 #define SYSCTRL_BASE_ADDRESS                    0x400FE000
+
+#define GPT_TIMER0_BASE_ADDRESS                 0x40030000
+#define GPT_TIMER1_BASE_ADDRESS                 0x40031000
+#define GPT_TIMER2_BASE_ADDRESS                 0x40032000
+#define GPT_TIMER0_BASE_ADDRESS                 0x40033000
+#define GPT_TIMER1_BASE_ADDRESS                 0x40034000
+#define GPT_TIMER2_BASE_ADDRESS                 0x40035000
+
+#define GPT_WIDE_TIMER0_BASE_ADDRESS            0x40036000     
+#define GPT_WIDE_TIMER1_BASE_ADDRESS            0x40037000
+#define GPT_WIDE_TIMER2_BASE_ADDRESS            0x4004C000
+#define GPT_WIDE_TIMER0_BASE_ADDRESS            0x4004D000     
+#define GPT_WIDE_TIMER1_BASE_ADDRESS            0x4004E000
+#define GPT_WIDE_TIMER2_BASE_ADDRESS            0x4004F000
 
                    
 #define GPIOA_DATA_BASE_ADDRESS                       (0x40058000)
