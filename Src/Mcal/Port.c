@@ -23,7 +23,15 @@
 /**********************************************************************************************************************
  *  LOCAL DATA
  *********************************************************************************************************************/
-
+static uint32 Port_PortsAddress[] =
+    {
+        GPIOA_BASE_ADDRESS,
+        GPIOB_BASE_ADDRESS,
+        GPIOC_BASE_ADDRESS,
+        GPIOD_BASE_ADDRESS,
+        GPIOE_BASE_ADDRESS,
+        GPIOF_BASE_ADDRESS,
+};
 /**********************************************************************************************************************
  *  GLOBAL DATA
  *********************************************************************************************************************/
@@ -54,15 +62,7 @@
 void Port_Init(const Port_ConfigType *ConfigPtr, uint8 ConfigSize)
 {
     uint8 uint8LocalCounter;
-    uint32 Port_PortsAddress[] =
-        {
-            GPIOA_BASE_ADDRESS,
-            GPIOB_BASE_ADDRESS,
-            GPIOC_BASE_ADDRESS,
-            GPIOD_BASE_ADDRESS,
-            GPIOE_BASE_ADDRESS,
-            GPIOF_BASE_ADDRESS,
-        };
+
     for (uint8LocalCounter = 0; uint8LocalCounter < ConfigSize; uint8LocalCounter++)
     {
         uint8 uint8LocalPortId = (ConfigPtr->PortPin) / 8;
@@ -108,8 +108,9 @@ void Port_Init(const Port_ConfigType *ConfigPtr, uint8 ConfigSize)
         }
         ACCESS_REGISTER(Port_PortsAddress[uint8LocalPortId], GPIODEN) |= (1 << uint8LocalPinId);
     }
+}
 
-    /**********************************************************************************************************************
-     *  END OF FILE: Port.c
-     *********************************************************************************************************************/
-    /*SYSCTRL_BASE_ADDRESS*/
+/**********************************************************************************************************************
+ *  END OF FILE: Port.c
+ *********************************************************************************************************************/
+/*SYSCTRL_BASE_ADDRESS*/
