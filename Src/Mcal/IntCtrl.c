@@ -63,10 +63,11 @@ void IntCrtl_Init(void)
     uint32LocalAPINT <<= 8;
     uint32LocalAPINT |= 0x05FA0000;
     APINT = uint32LocalAPINT; 
+    uint8 uint8LocalCounter;
     /*TODO : Assign Group\Subgroup priority in NVIC_PRIx Nvic and SCB_SYSPRIx Registers*/ 
 
 	/*TODO : Enable\Disable based on user configurations in NVIC_ENx and SCB_Sys Registers */
-    for (uint8 uint8LocalCounter = 0; uint8LocalCounter < INTCTRL_PERI_EN_NUMBER; uint8LocalCounter++)
+    for (uint8LocalCounter = 0; uint8LocalCounter < INTCTRL_PERI_EN_NUMBER; uint8LocalCounter++)
     {
         uint8 uint8LocalEnReg = uint8ArrInterrupts[uint8LocalCounter]/32;
         uint8 uint8LocalEnBit = uint8ArrInterrupts[uint8LocalCounter]%32;

@@ -33,7 +33,7 @@ Gpt_ConfigType Gpt_ConfigArr[GPT_MAX_GPT_NUMBER] =
         .ChannelID = TIMER0,
         .Gpt_ChannelTickFrequency = 8,
         .GptChannelTickValueMax = 32,
-        .GptChannelMode = GPT_MODE_SLEEP
+        .GptChannelMode = GPT_PERIODIC_MODE
     }
 };
 /**********************************************************************************************************************

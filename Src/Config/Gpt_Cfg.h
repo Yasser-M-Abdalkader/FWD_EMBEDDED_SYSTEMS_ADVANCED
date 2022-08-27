@@ -20,7 +20,7 @@
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
-#define GPT_PREDEF_TIMER_100US_32BIT    DISABLE
+#define GPT_PREDEF_TIMER_100US_32BIT  DISABLE
 #define GPT_PREDEF_TIMER_1US_16BIT    DISABLE
 #define GPT_PREDEF_TIMER_1US_24BIT    DISABLE
 #define GPT_PREDEF_TIMER_1US_32BIT    DISABLE

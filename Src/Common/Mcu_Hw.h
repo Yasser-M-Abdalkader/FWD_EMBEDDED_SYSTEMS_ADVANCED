@@ -28,8 +28,7 @@ typedef struct
     uint32 VECACT   :8;
     uint32          :3;
     uint32 RETBASE  :1;
-    uint32 VECPEND  :3;
-    uint32 VECPEND  :4;
+    uint32 VECPEND  :8;
     uint32          :2;
     uint32 ISRPEND  :1;
     uint32 ISRPRE   :1;
@@ -53,45 +52,6 @@ typedef struct
     uint32 PRI[16];
 }INTCTRL_PRI;
 
-
-typedef struct 
-{
-    uint32  GPIODIR;
-    uint32  GPIOIS;
-    uint32  GPIOIBE;
-    uint32  GPIOIEV;
-    uint32  GPIOIM;
-    uint32  GPIORIS;
-    uint32  GPIOMIS;
-    uint32  GPIOICR;
-    uint32  GPIOAFSEL;
-    uint32  GPIODR2R;
-    uint32  GPIODR4R;
-    uint32  GPIODR8R;
-    uint32  GPIOODR;
-    uint32  GPIOPUR;
-    uint32  GPIOPDR;
-    uint32  GPIOSLR;
-    uint32  GPIODEN;
-    uint32  GPIOLOCK;
-    uint32  GPIOCR;
-    uint32  GPIOAMSEL;
-    uint32  GPIOPCTL;
-    uint32  GPIOADCCTL;
-    uint32  GPIODMACTL;
-    uint32  GPIOPeriphID4;
-    uint32  GPIOPeriphID5;
-    uint32  GPIOPeriphID6;
-    uint32  GPIOPeriphID7;
-    uint32  GPIOPeriphID0;
-    uint32  GPIOPeriphID1;
-    uint32  GPIOPeriphID2;
-    uint32  GPIOPeriphID3;
-    uint32  GPIOPCellID0;
-    uint32  GPIOPCellID1;
-    uint32  GPIOPCellID2;
-    uint32  GPIOPCellID3;
-}GPIO_RegisterType;
 
 typedef struct 
 {
@@ -132,40 +92,27 @@ typedef struct
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
 #define CORTEXM4_PERI_BASE_ADDRESS             0xE000E000
-#define SYSCTRL_BASE_ADDRESS                    0x400FE000
+#define SYSCTRL_BASE_ADDRESS                   0x400FE000
 
-#define GPT_TIMER0_BASE_ADDRESS                 0x40030000
-#define GPT_TIMER1_BASE_ADDRESS                 0x40031000
-#define GPT_TIMER2_BASE_ADDRESS                 0x40032000
-#define GPT_TIMER0_BASE_ADDRESS                 0x40033000
-#define GPT_TIMER1_BASE_ADDRESS                 0x40034000
-#define GPT_TIMER2_BASE_ADDRESS                 0x40035000
 
-#define GPT_WIDE_TIMER0_BASE_ADDRESS            0x40036000     
-#define GPT_WIDE_TIMER1_BASE_ADDRESS            0x40037000
-#define GPT_WIDE_TIMER2_BASE_ADDRESS            0x4004C000
-#define GPT_WIDE_TIMER0_BASE_ADDRESS            0x4004D000     
-#define GPT_WIDE_TIMER1_BASE_ADDRESS            0x4004E000
-#define GPT_WIDE_TIMER2_BASE_ADDRESS            0x4004F000
+
+
+#define GPT_TIMER0_BASE_ADDRESS                 (((volatile GPT_RegisterType *)0x40030000))
+#define GPT_TIMER1_BASE_ADDRESS                 (((volatile GPT_RegisterType *)0x40031000))
+#define GPT_TIMER2_BASE_ADDRESS                 (((volatile GPT_RegisterType *)0x40032000))
+#define GPT_TIMER3_BASE_ADDRESS                 (((volatile GPT_RegisterType *)0x40033000))
+#define GPT_TIMER4_BASE_ADDRESS                 (((volatile GPT_RegisterType *)0x40034000))
+#define GPT_TIMER5_BASE_ADDRESS                 (((volatile GPT_RegisterType *)0x40035000))
+
+#define GPT_WIDE_TIMER0_BASE_ADDRESS            (((volatile GPT_RegisterType *)0x40036000))     
+#define GPT_WIDE_TIMER1_BASE_ADDRESS            (((volatile GPT_RegisterType *)0x40037000))
+#define GPT_WIDE_TIMER2_BASE_ADDRESS            (((volatile GPT_RegisterType *)0x4004C000))
+#define GPT_WIDE_TIMER3_BASE_ADDRESS            (((volatile GPT_RegisterType *)0x4004D000))     
+#define GPT_WIDE_TIMER4_BASE_ADDRESS            (((volatile GPT_RegisterType *)0x4004E000))
+#define GPT_WIDE_TIMER5_BASE_ADDRESS            (((volatile GPT_RegisterType *)0x4004F000))
 
                    
-#define GPIOA_DATA_BASE_ADDRESS                       (0x40058000)
-#define GPIOA_BASE_ADDRESS                            ((volatile GPIO_RegisterType *)(GPIOA_DATA_BASE_ADDRESS + 0x400))   
 
-#define GPIOB_DATA_BASE_ADDRESS                       0x40059000
-#define GPIOB_BASE_ADDRESS                            ((volatile GPIO_RegisterType *)(GPIOB_DATA_BASE_ADDRESS + 0x400))
-
-#define GPIOC_DATA_BASE_ADDRESS                       0x4005A000
-#define GPIOC_BASE_ADDRESS                            ((volatile GPIO_RegisterType *)(GPIOC_DATA_BASE_ADDRESS + 0x400))
-
-#define GPIOD_DATA_BASE_ADDRESS                       0x4005B000
-#define GPIOD_BASE_ADDRESS                            ((volatile GPIO_RegisterType *)(GPIOD_DATA_BASE_ADDRESS + 0x400))
-
-#define GPIOE_DATA_BASE_ADDRESS                       0x4005C000
-#define GPIOE_BASE_ADDRESS                            ((volatile GPIO_RegisterType *)(GPIOE_DATA_BASE_ADDRESS + 0x400))
-
-#define GPIOF_DATA_BASE_ADDRESS                       0x4005D000
-#define GPIOF_BASE_ADDRESS                            ((volatile GPIO_RegisterType *)(GPIOF_DATA_BASE_ADDRESS + 0x400))
 
 
 
@@ -173,23 +120,169 @@ typedef struct
 #define PRI                                         ((volatile INTCTRL_PRI*)(CORTEXM4_PERI_BASE_ADDRESS+0x400))
 #define EN                                          ((volatile INTCTRL_EN*)(CORTEXM4_PERI_BASE_ADDRESS+0x100))
 #define INTCTRL                                     ((volatile INTCTRL_Tag*)(CORTEXM4_PERI_BASE_ADDRESS+0xD04))
-#define RCC                                         *((volatile uint32*)(SYSCTRL_BASE_ADDRESS+0x060))
+#define RCC                                         (*((volatile uint32*)(SYSCTRL_BASE_ADDRESS+0x060)))
+#define RCGCGPIO                                    (*((volatile uint32*)(SYSCTRL_BASE_ADDRESS+0x0608))) 
 
 
-#define GPIOA_DATA                                   ((volatile uint32*)(GPIOA_DATA_BASE_ADDRESS))
-#define GPIOB_DATA                                   ((volatile uint32*)(GPIOB_DATA_BASE_ADDRESS))
-#define GPIOC_DATA                                   ((volatile uint32*)(GPIOC_DATA_BASE_ADDRESS))
-#define GPIOD_DATA                                   ((volatile uint32*)(GPIOD_DATA_BASE_ADDRESS))
-#define GPIOE_DATA                                   ((volatile uint32*)(GPIOE_DATA_BASE_ADDRESS))
-#define GPIOF_DATA                                   ((volatile uint32*)(GPIOF_DATA_BASE_ADDRESS))
 
 
-#define GPIOA_REG                                     ((volatile GPIO_RegisterType*)(GPIOA_BASE_ADDRESS))
-#define GPIOB_REG                                     ((volatile GPIO_RegisterType*)(GPIOB_BASE_ADDRESS))
-#define GPIOC_REG                                     ((volatile GPIO_RegisterType*)(GPIOC_BASE_ADDRESS))
-#define GPIOD_REG                                     ((volatile GPIO_RegisterType*)(GPIOD_BASE_ADDRESS))
-#define GPIOE_REG                                     ((volatile GPIO_RegisterType*)(GPIOE_BASE_ADDRESS))
-#define GPIOF_REG                                     ((volatile GPIO_RegisterType*)(GPIOF_BASE_ADDRESS))
+#define GPIOA_BASE_ADDRESS                           (0x40004000)
+#define PORTA_GPIODATA                               GPIOA_BASE_ADDRESS
+#define PORTA_GPIODIR                                (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x400))
+#define PORTA_GPIOIS                                 (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x404))
+#define PORTA_GPIOIBE                                (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x408))
+#define PORTA_GPIOIEV                                (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x40C))
+#define PORTA_GPIOIM                                 (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x410))
+#define PORTA_GPIORIS                                (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x414))
+#define PORTA_GPIOMIS                                (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x418))
+#define PORTA_GPIOICR                                (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x41C))
+#define PORTA_GPIOAFSEL                              (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x420))
+#define PORTA_GPIODR2R                               (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x500))
+#define PORTA_GPIODR4R                               (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x504))
+#define PORTA_GPIODR8R                               (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x508))
+#define PORTA_GPIOODR                                (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x50C))
+#define PORTA_GPIOPUR                                (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x510))
+#define PORTA_GPIOPDR                                (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x514))
+#define PORTA_GPIOSLR                                (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x518))
+#define PORTA_GPIODEN                                (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x51C))
+#define PORTA_GPIOLOCK                               (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x520))
+#define PORTA_GPIOCR                                 (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x524))
+#define PORTA_GPIOAMSEL                              (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x528))
+#define PORTA_GPIOPCTL                               (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x52C))
+#define PORTA_GPIOADCCTL                             (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x530))
+#define PORTA_GPIODMACTL                             (*(uint32 *)(GPIOA_BASE_ADDRESS + 0x534))
+
+
+
+#define GPIOB_BASE_ADDRESS                       0x40005000
+#define PORTB_GPIODATA                                     (GPIOB_BASE_ADDRESS)
+#define PORTB_GPIODIR                                (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x400))
+#define PORTB_GPIOIS                                 (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x404))
+#define PORTB_GPIOIBE                                (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x408))
+#define PORTB_GPIOIEV                                (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x40C))
+#define PORTB_GPIOIM                                 (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x410))
+#define PORTB_GPIORIS                                (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x414))
+#define PORTB_GPIOMIS                                (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x418))
+#define PORTB_GPIOICR                                (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x41C))
+#define PORTB_GPIOAFSEL                              (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x420))
+#define PORTB_GPIODR2R                               (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x500))
+#define PORTB_GPIODR4R                               (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x504))
+#define PORTB_GPIODR8R                               (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x508))
+#define PORTB_GPIOODR                                (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x50C))
+#define PORTB_GPIOPUR                                (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x510))
+#define PORTB_GPIOPDR                                (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x514))
+#define PORTB_GPIOSLR                                (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x518))
+#define PORTB_GPIODEN                                (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x51C))
+#define PORTB_GPIOLOCK                               (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x520))
+#define PORTB_GPIOCR                                 (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x524))
+#define PORTB_GPIOAMSEL                              (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x528))
+#define PORTB_GPIOPCTL                               (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x52C))
+#define PORTB_GPIOADCCTL                             (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x530))
+#define PORTB_GPIODMACTL                             (*(uint32 *)(GPIOB_BASE_ADDRESS + 0x534))
+
+#define GPIOC_BASE_ADDRESS                       0x40006000
+#define PORTC_GPIODATA                            (GPIOC_BASE_ADDRESS)
+#define PORTC_GPIODIR                             (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x400))
+#define PORTC_GPIOIS                              (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x404))
+#define PORTC_GPIOIBE                             (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x408))
+#define PORTC_GPIOIEV                             (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x40C))
+#define PORTC_GPIOIM                              (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x410))
+#define PORTC_GPIORIS                             (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x414))
+#define PORTC_GPIOMIS                             (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x418))
+#define PORTC_GPIOICR                             (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x41C))
+#define PORTC_GPIOAFSEL                           (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x420))
+#define PORTC_GPIODR2R                            (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x500))
+#define PORTC_GPIODR4R                            (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x504))
+#define PORTC_GPIODR8R                            (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x508))
+#define PORTC_GPIOODR                             (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x50C))
+#define PORTC_GPIOPUR                             (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x510))
+#define PORTC_GPIOPDR                             (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x514))
+#define PORTC_GPIOSLR                             (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x518))
+#define PORTC_GPIODEN                             (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x51C))
+#define PORTC_GPIOLOCK                            (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x520))
+#define PORTC_GPIOCR                              (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x524))
+#define PORTC_GPIOAMSEL                           (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x528))
+#define PORTC_GPIOPCTL                            (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x52C))
+#define PORTC_GPIOADCCTL                          (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x530))
+#define PORTC_GPIODMACTL                          (*(uint32 *)(GPIOC_BASE_ADDRESS + 0x534))
+
+#define GPIOD_BASE_ADDRESS                       0x40007000
+#define PORTD_GPIODATA                             (GPIOD_BASE_ADDRESS)
+#define PORTD_GPIODIR                              (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x400))
+#define PORTD_GPIOIS                               (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x404))
+#define PORTD_GPIOIBE                              (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x408))
+#define PORTD_GPIOIEV                              (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x40C))
+#define PORTD_GPIOIM                               (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x410))
+#define PORTD_GPIORIS                              (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x414))
+#define PORTD_GPIOMIS                              (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x418))
+#define PORTD_GPIOICR                              (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x41C))
+#define PORTD_GPIOAFSEL                            (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x420))
+#define PORTD_GPIODR2R                             (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x500))
+#define PORTD_GPIODR4R                             (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x504))
+#define PORTD_GPIODR8R                             (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x508))
+#define PORTD_GPIOODR                              (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x50C))
+#define PORTD_GPIOPUR                              (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x510))
+#define PORTD_GPIOPDR                              (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x514))
+#define PORTD_GPIOSLR                              (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x518))
+#define PORTD_GPIODEN                              (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x51C))
+#define PORTD_GPIOLOCK                             (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x520))
+#define PORTD_GPIOCR                               (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x524))
+#define PORTD_GPIOAMSEL                            (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x528))
+#define PORTD_GPIOPCTL                             (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x52C))
+#define PORTD_GPIOADCCTL                           (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x530))
+#define PORTD_GPIODMACTL                           (*(uint32 *)(GPIOD_BASE_ADDRESS + 0x534))
+
+#define GPIOE_BASE_ADDRESS                          0x40024000
+#define PORTE_GPIODATA                              (GPIOE_BASE_ADDRESS)
+#define PORTE_GPIODIR                               (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x400))
+#define PORTE_GPIOIS                                (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x404))
+#define PORTE_GPIOIBE                               (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x408))
+#define PORTE_GPIOIEV                               (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x40C))
+#define PORTE_GPIOIM                                (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x410))
+#define PORTE_GPIORIS                               (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x414))
+#define PORTE_GPIOMIS                               (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x418))
+#define PORTE_GPIOICR                               (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x41C))
+#define PORTE_GPIOAFSEL                             (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x420))
+#define PORTE_GPIODR2R                              (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x500))
+#define PORTE_GPIODR4R                              (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x504))
+#define PORTE_GPIODR8R                              (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x508))
+#define PORTE_GPIOODR                               (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x50C))
+#define PORTE_GPIOPUR                               (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x510))
+#define PORTE_GPIOPDR                               (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x514))
+#define PORTE_GPIOSLR                               (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x518))
+#define PORTE_GPIODEN                               (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x51C))
+#define PORTE_GPIOLOCK                              (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x520))
+#define PORTE_GPIOCR                                (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x524))
+#define PORTE_GPIOAMSEL                             (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x528))
+#define PORTE_GPIOPCTL                              (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x52C))
+#define PORTE_GPIOADCCTL                            (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x530))
+#define PORTE_GPIODMACTL                            (*(uint32 *)(GPIOE_BASE_ADDRESS + 0x534))
+
+#define GPIOF_BASE_ADDRESS                              0x40025000
+#define PORTF_GPIODATA                                  (GPIOF_BASE_ADDRESS)
+#define PORTF_GPIODIR                                   (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x400))
+#define PORTF_GPIOIS                                    (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x404))
+#define PORTF_GPIOIBE                                   (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x408))
+#define PORTF_GPIOIEV                                   (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x40C))
+#define PORTF_GPIOIM                                    (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x410))
+#define PORTF_GPIORIS                                   (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x414))
+#define PORTF_GPIOMIS                                   (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x418))
+#define PORTF_GPIOICR                                   (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x41C))
+#define PORTF_GPIOAFSEL                                 (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x420))
+#define PORTF_GPIODR2R                                  (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x500))
+#define PORTF_GPIODR4R                                  (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x504))
+#define PORTF_GPIODR8R                                  (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x508))
+#define PORTF_GPIOODR                                   (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x50C))
+#define PORTF_GPIOPUR                                   (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x510))
+#define PORTF_GPIOPDR                                   (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x514))
+#define PORTF_GPIOSLR                                   (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x518))
+#define PORTF_GPIODEN                                   (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x51C))
+#define PORTF_GPIOLOCK                                  (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x520))
+#define PORTF_GPIOCR                                    (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x524))
+#define PORTF_GPIOAMSEL                                 (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x528))
+#define PORTF_GPIOPCTL                                  (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x52C))
+#define PORTF_GPIOADCCTL                                (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x530))
+#define PORTF_GPIODMACTL                                (*(uint32 *)(GPIOF_BASE_ADDRESS + 0x534))
 
 
 /**********************************************************************************************************************

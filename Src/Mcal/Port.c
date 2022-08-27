@@ -55,216 +55,224 @@
 *******************************************************************************/
 void Port_Init(const Port_ConfigType* ConfigPtr)
 {
-    for (uint8 uint8LocalCounter = 0; uint8LocalCounter < PORT_PINS_NUMBER; uint8LocalCounter++)
+    uint8 uint8LocalCounter;
+    for (uint8LocalCounter = 0; uint8LocalCounter < PORT_PINS_NUMBER; uint8LocalCounter++)
     {
         uint8 uint8LocalPortId = (ConfigPtr->PortPin)/8;
-        uint8 uint8LocalPinId = (ConfigPtr->PortPin)%8;
-        *((uint32 *)(SYSCTRL_BASE_ADDRESS + 0x608)) |= 1 << uint8LocalPortId;
+        uint8 uint8LocalPinId = (ConfigPtr->PortPin) % 8;
+
+        /* Activate Port Clock*/
+        RCGCGPIO |= 1 << uint8LocalPortId;
+
+
+
         switch (uint8LocalPortId)
         {
         case PORTA: 
             if (ConfigPtr->PortPinDirection == PORT_PIN_DIRECTION_INPUT)
             {
-                GPIOA_BASE_ADDRESS->GPIODIR &= ~(1 << uint8LocalPinId);
+                PORTA_GPIODIR &= ~(1 << uint8LocalPinId);
             }
             else
             {
-                GPIOA_BASE_ADDRESS->GPIODIR |= (1 << uint8LocalPinId);
+                PORTA_GPIODIR |= (1 << uint8LocalPinId);
             }
-            GPIOA_BASE_ADDRESS->GPIOAFSEL &= ~(1 << uint8LocalPinId);
+            
+             /* Disable Alternative Function */ 
+            PORTA_GPIOAFSEL &= ~(1 << uint8LocalPinId);
             switch (ConfigPtr->Port_PinOutputCurrent)
             {
             case PORT_DRV2:
-                GPIOA_BASE_ADDRESS->GPIODR2R |= (1 << uint8LocalPinId); 
+                PORTA_GPIODR2R |= (1 << uint8LocalPinId); 
                 break;
             case PORT_DRV4:
-                GPIOA_BASE_ADDRESS->GPIODR4R |= (1 << uint8LocalPinId);
+                PORTA_GPIODR4R |= (1 << uint8LocalPinId);
                 break;
             case PORT_DRV8:
-                GPIOA_BASE_ADDRESS->GPIODR8R |= (1 << uint8LocalPinId);
+                PORTA_GPIODR8R |= (1 << uint8LocalPinId);
                 break;
             }
             switch (ConfigPtr->Port_PinInternalAttach)
             {
             case PORT_PUR:
-                GPIOA_BASE_ADDRESS->GPIOPUR |= (1 << uint8LocalPinId); 
+                PORTA_GPIOPUR |= (1 << uint8LocalPinId); 
                 break;
             case PORT_PDR:
-                GPIOA_BASE_ADDRESS->GPIOPDR |= (1 << uint8LocalPinId);
+                PORTA_GPIOPDR |= (1 << uint8LocalPinId);
                 break;
             default : break;
             }
-            GPIOA_BASE_ADDRESS->GPIODEN |= (1 << uint8LocalPinId);
+            PORTA_GPIODEN|= (1 << uint8LocalPinId);
             break;
         case PORTB:
                 if (ConfigPtr->PortPinDirection == PORT_PIN_DIRECTION_INPUT)
             {
-                GPIOB_BASE_ADDRESS->GPIODIR &= ~(1 << uint8LocalPinId);
+                PORTB_GPIODIR &= ~(1 << uint8LocalPinId);
             }
             else
             {
-                GPIOB_BASE_ADDRESS->GPIODIR |= (1 << uint8LocalPinId);
+                PORTB_GPIODIR|= (1 << uint8LocalPinId);
             }
-            GPIOB_BASE_ADDRESS->GPIOAFSEL &= ~(1 << uint8LocalPinId);
+            PORTB_GPIOAFSEL &= ~(1 << uint8LocalPinId);
             switch (ConfigPtr->Port_PinOutputCurrent)
             {
             case PORT_DRV2:
-                GPIOB_BASE_ADDRESS->GPIODR2R |= (1 << uint8LocalPinId); 
+                PORTB_GPIODR2R |= (1 << uint8LocalPinId); 
                 break;
             case PORT_DRV4:
-                GPIOB_BASE_ADDRESS->GPIODR4R |= (1 << uint8LocalPinId);
+                PORTB_GPIODR4R |= (1 << uint8LocalPinId);
                 break;
             case PORT_DRV8:
-                GPIOB_BASE_ADDRESS->GPIODR8R |= (1 << uint8LocalPinId);
+                PORTB_GPIODR8R |= (1 << uint8LocalPinId);
                 break;
             }
             switch (ConfigPtr->Port_PinInternalAttach)
             {
             case PORT_PUR:
-                GPIOB_BASE_ADDRESS->GPIOPUR |= (1 << uint8LocalPinId); 
+                PORTB_GPIOPUR |= (1 << uint8LocalPinId); 
                 break;
             case PORT_PDR:
-                GPIOB_BASE_ADDRESS->GPIOPDR |= (1 << uint8LocalPinId);
+                PORTB_GPIOPDR|= (1 << uint8LocalPinId);
                 break;
             default : break;
             }
-            GPIOB_BASE_ADDRESS->GPIODEN |= (1 << uint8LocalPinId);
+            PORTB_GPIODEN |= (1 << uint8LocalPinId);
             break;
         case PORTC:
                 if (ConfigPtr->PortPinDirection == PORT_PIN_DIRECTION_INPUT)
             {
-                GPIOC_BASE_ADDRESS->GPIODIR &= ~(1 << uint8LocalPinId);
+                PORTC_GPIODIR &= ~(1 << uint8LocalPinId);
             }
             else
             {
-                GPIOC_BASE_ADDRESS->GPIODIR |= (1 << uint8LocalPinId);
+                PORTC_GPIODIR |= (1 << uint8LocalPinId);
             }
-            GPIOC_BASE_ADDRESS->GPIOAFSEL &= ~(1 << uint8LocalPinId);
+            PORTC_GPIOAFSEL &= ~(1 << uint8LocalPinId);
             switch (ConfigPtr->Port_PinOutputCurrent)
             {
             case PORT_DRV2:
-                GPIOC_BASE_ADDRESS->GPIODR2R |= (1 << uint8LocalPinId); 
+                PORTC_GPIODR2R |= (1 << uint8LocalPinId); 
                 break;
             case PORT_DRV4:
-                GPIOC_BASE_ADDRESS->GPIODR4R |= (1 << uint8LocalPinId);
+                PORTC_GPIODR4R |= (1 << uint8LocalPinId);
                 break;
             case PORT_DRV8:
-                GPIOC_BASE_ADDRESS->GPIODR8R |= (1 << uint8LocalPinId);
+                PORTC_GPIODR8R |= (1 << uint8LocalPinId);
                 break;
             }
             switch (ConfigPtr->Port_PinInternalAttach)
             {
             case PORT_PUR:
-                GPIOC_BASE_ADDRESS->GPIOPUR |= (1 << uint8LocalPinId); 
+                PORTC_GPIOPUR |= (1 << uint8LocalPinId); 
                 break;
             case PORT_PDR:
-                GPIOC_BASE_ADDRESS->GPIOPDR |= (1 << uint8LocalPinId);
+                PORTC_GPIOPDR |= (1 << uint8LocalPinId);
                 break;
                 default : break;
             }
-            GPIOC_BASE_ADDRESS->GPIODEN |= (1 << uint8LocalPinId);
+            PORTC_GPIODEN |= (1 << uint8LocalPinId);
             break;
         case PORTD:
                 if (ConfigPtr->PortPinDirection == PORT_PIN_DIRECTION_INPUT)
             {
-                GPIOD_BASE_ADDRESS->GPIODIR &= ~(1 << uint8LocalPinId);
+                PORTD_GPIODIR &= ~(1 << uint8LocalPinId);
             }
             else
             {
-                GPIOD_BASE_ADDRESS->GPIODIR |= (1 << uint8LocalPinId);
+                PORTD_GPIODIR |= (1 << uint8LocalPinId);
             }
-            GPIOD_BASE_ADDRESS->GPIOAFSEL &= ~(1 << uint8LocalPinId);
+            PORTD_GPIOAFSEL &= ~(1 << uint8LocalPinId);
             switch (ConfigPtr->Port_PinOutputCurrent)
             {
             case PORT_DRV2:
-                GPIOD_BASE_ADDRESS->GPIODR2R |= (1 << uint8LocalPinId); 
+                PORTD_GPIODR2R |= (1 << uint8LocalPinId); 
                 break;
             case PORT_DRV4:
-                GPIOD_BASE_ADDRESS->GPIODR4R |= (1 << uint8LocalPinId);
+                PORTD_GPIODR4R |= (1 << uint8LocalPinId);
                 break;
             case PORT_DRV8:
-                GPIOD_BASE_ADDRESS->GPIODR8R |= (1 << uint8LocalPinId);
+                PORTD_GPIODR8R |= (1 << uint8LocalPinId);
                 break;
             }
             switch (ConfigPtr->Port_PinInternalAttach)
             {
             case PORT_PUR:
-                GPIOA_BASE_ADDRESS->GPIOPUR |= (1 << uint8LocalPinId); 
+                PORTD_GPIOPUR |= (1 << uint8LocalPinId); 
                 break;
             case PORT_PDR:
-                GPIOD_BASE_ADDRESS->GPIOPDR |= (1 << uint8LocalPinId);
+                PORTD_GPIOPDR |= (1 << uint8LocalPinId);
                 break;
                 default : break;
             }
-            GPIOD_BASE_ADDRESS->GPIODEN |= (1 << uint8LocalPinId);
+            PORTD_GPIODEN |= (1 << uint8LocalPinId);
             break;
         case PORTE:
                 if (ConfigPtr->PortPinDirection == PORT_PIN_DIRECTION_INPUT)
             {
-                GPIOE_BASE_ADDRESS->GPIODIR &= ~(1 << uint8LocalPinId);
+                PORTE_GPIODIR &= ~(1 << uint8LocalPinId);
             }
             else
             {
-                GPIOE_BASE_ADDRESS->GPIODIR |= (1 << uint8LocalPinId);
+                PORTE_GPIODIR |= (1 << uint8LocalPinId);
             }
-            GPIOE_BASE_ADDRESS->GPIOAFSEL &= ~(1 << uint8LocalPinId);
+            PORTE_GPIOAFSEL &= ~(1 << uint8LocalPinId);
             switch (ConfigPtr->Port_PinOutputCurrent)
             {
             case PORT_DRV2:
-                GPIOE_BASE_ADDRESS->GPIODR2R |= (1 << uint8LocalPinId); 
+               PORTE_GPIODR2R |= (1 << uint8LocalPinId); 
                 break;
             case PORT_DRV4:
-                GPIOE_BASE_ADDRESS->GPIODR4R |= (1 << uint8LocalPinId);
+                PORTE_GPIODR4R |= (1 << uint8LocalPinId);
                 break;
             case PORT_DRV8:
-                GPIOE_BASE_ADDRESS->GPIODR8R |= (1 << uint8LocalPinId);
+                PORTE_GPIODR8R |= (1 << uint8LocalPinId);
                 break;
             }
             switch (ConfigPtr->Port_PinInternalAttach)
             {
             case PORT_PUR:
-                GPIOE_BASE_ADDRESS->GPIOPUR |= (1 << uint8LocalPinId); 
+                PORTE_GPIOPUR |= (1 << uint8LocalPinId); 
                 break;
             case PORT_PDR:
-                GPIOE_BASE_ADDRESS->GPIOPDR |= (1 << uint8LocalPinId);
+                PORTE_GPIOPDR |= (1 << uint8LocalPinId);
                 break;
                 default : break;
             }
-            GPIOE_BASE_ADDRESS->GPIODEN |= (1 << uint8LocalPinId);
+            PORTE_GPIODEN |= (1 << uint8LocalPinId);
             break;
         case PORTF:
                 if (ConfigPtr->PortPinDirection == PORT_PIN_DIRECTION_INPUT)
             {
-                GPIOF_BASE_ADDRESS->GPIODIR &= ~(1 << uint8LocalPinId);
+                PORTF_GPIODIR &= ~(1 << uint8LocalPinId);
             }
             else
             {
-                GPIOF_BASE_ADDRESS->GPIODIR |= (1 << uint8LocalPinId);
+                PORTF_GPIODIR |= (1 << uint8LocalPinId);
             }
-            GPIOF_BASE_ADDRESS->GPIOAFSEL &= ~(1 << uint8LocalPinId);
+            PORTF_GPIOAFSEL &= ~(1 << uint8LocalPinId);
             switch (ConfigPtr->Port_PinOutputCurrent)
             {
             case PORT_DRV2:
-                GPIOF_BASE_ADDRESS->GPIODR2R |= (1 << uint8LocalPinId); 
+                PORTF_GPIODR2R |= (1 << uint8LocalPinId); 
                 break;
             case PORT_DRV4:
-                GPIOF_BASE_ADDRESS->GPIODR4R |= (1 << uint8LocalPinId);
+                PORTF_GPIODR4R |= (1 << uint8LocalPinId);
                 break;
             case PORT_DRV8:
-                GPIOF_BASE_ADDRESS->GPIODR8R |= (1 << uint8LocalPinId);
+                PORTF_GPIODR8R |= (1 << uint8LocalPinId);
                 break;
             }
             switch (ConfigPtr->Port_PinInternalAttach)
             {
             case PORT_PUR:
-                GPIOF_BASE_ADDRESS->GPIOPUR |= (1 << uint8LocalPinId); 
+                PORTF_GPIOPUR |= (1 << uint8LocalPinId); 
                 break;
             case PORT_PDR:
-                GPIOF_BASE_ADDRESS->GPIOPDR |= (1 << uint8LocalPinId);
+                PORTF_GPIOPDR |= (1 << uint8LocalPinId);
                 break;
                 default : break;
             }
-            GPIOF_BASE_ADDRESS->GPIODEN |= (1 << uint8LocalPinId);
+            PORTF_GPIODEN |= (1 << uint8LocalPinId);
             break;
         }
     }

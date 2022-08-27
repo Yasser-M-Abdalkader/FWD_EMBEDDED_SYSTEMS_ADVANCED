@@ -31,23 +31,23 @@
  *********************************************************************************************************************/
 typedef enum
 {
-    PA0 = 0, PA1, PA2, PA3, PA4, PA5, PA6, PA7,
-    PB0, PB1, PB2, PB3, PB4, PB5, PB6, PB7,
-    PC0, PC1, PC2, PC3, PC4, PC5, PC6, PC7,
-    PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7,
-    PE0, PE1, PE2, PE3, PE4, PE5,
-    PF0 = 40, PF1, PF2, PF3, PF4
+    DIO_PA0 = 0, DIO_PA1, DIO_PA2, DIO_PA3, DIO_PA4, DIO_PA5, DIO_PA6, DIO_PA7,
+    DIO_PB0, DIO_PB1, DIO_PB2, DIO_PB3, DIO_PB4, DIO_PB5, DIO_PB6, DIO_PB7,
+    DIO_PC0, DIO_PC1, DIO_PC2, DIO_PC3, DIO_PC4, DIO_PC5, DIO_PC6, DIO_PC7,
+    DIO_PD0, DIO_PD1, DIO_PD2, DIO_PD3, DIO_PD4, DIO_PD5, DIO_PD6, DIO_PD7,
+    DIO_PE0, DIO_PE1, DIO_PE2, DIO_PE3, DIO_PE4, DIO_PE5,
+    DIO_PF0 = 40, DIO_PF1, DIO_PF2, DIO_PF3, DIO_PF4
 }Dio_ChannelType;
 
 
 typedef enum
 {
-    PORTA = 0,
-    PORTB,
-    PORTC,
-    PORTD,
-    PORTE,
-    PORTF
+    DIO_PORTA = 0,
+    DIO_PORTB,
+    DIO_PORTC,
+    DIO_PORTD,
+    DIO_PORTE,
+    DIO_PORTF
 }Dio_PortType;
 
 

@@ -29,13 +29,6 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
-typedef struct 
-{
-    Gpt_ChannelType ChannelID;
-    Gpt_ChannelTickFrequencyType    Gpt_ChannelTickFrequency;
-    Gpt_ValueType    GptChannelTickValueMax;
-    Gpt_ModeType    GptChannelMode;
-}Gpt_ConfigType;
 
 
 typedef enum
@@ -46,13 +39,12 @@ typedef enum
     TIMER3,
     TIMER4,
     TIMER5,
-
     WIDE_TIMER0,
     WIDE_TIMER1,
     WIDE_TIMER2,
     WIDE_TIMER3,
     WIDE_TIMER4,
-    WIDE_TIMER5,
+    WIDE_TIMER5
     
 }Gpt_ChannelType;
 
@@ -62,12 +54,22 @@ typedef uint8   Gpt_ChannelTickFrequencyType;
 
 typedef enum
 {
-    GPT_MODE_NORMAL = 0,
-    GPT_MODE_SLEEP
+    GPT_ONE_SHOT_MODE = 0x1,
+    GPT_PERIODIC_MODE
 }Gpt_ModeType;
 
 
 typedef uint8 Gpt_PredefTimerType;
+
+
+typedef struct 
+{
+    Gpt_ChannelType ChannelID;
+    Gpt_ChannelTickFrequencyType    Gpt_ChannelTickFrequency;
+    Gpt_ValueType    GptChannelTickValueMax;
+    Gpt_ModeType    GptChannelMode;
+}Gpt_ConfigType;
+
 
 /**********************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES
