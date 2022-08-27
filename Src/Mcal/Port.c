@@ -71,7 +71,6 @@ void Port_Init(const Port_ConfigType *ConfigPtr, uint8 ConfigSize)
         /* Activate Port Clock*/
         RCGCGPIO |= 1 << uint8LocalPortId;
 
-        ACCESS_REGISTER(Port_PortsAddress[uint8LocalPortId], GPIODEN) |= (1 << uint8LocalPinId);
         if (ConfigPtr->PortPinDirection == PORT_PIN_DIRECTION_INPUT)
         {
             ACCESS_REGISTER(Port_PortsAddress[uint8LocalPortId], GPIODIR) &= ~(1 << uint8LocalPinId);
@@ -95,6 +94,8 @@ void Port_Init(const Port_ConfigType *ConfigPtr, uint8 ConfigSize)
             ACCESS_REGISTER(Port_PortsAddress[uint8LocalPortId], GPIODR8R) |= (1 << uint8LocalPinId);
             break;
         }
+
+        /*  */
         switch (ConfigPtr->Port_PinInternalAttach)
         {
         case PORT_PUR:
@@ -106,6 +107,8 @@ void Port_Init(const Port_ConfigType *ConfigPtr, uint8 ConfigSize)
         default:
             break;
         }
+
+        /* Enable Pin */
         ACCESS_REGISTER(Port_PortsAddress[uint8LocalPortId], GPIODEN) |= (1 << uint8LocalPinId);
     }
 }
