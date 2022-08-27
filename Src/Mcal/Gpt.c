@@ -19,7 +19,11 @@
 /**********************************************************************************************************************
  *  LOCAL MACROS CONSTANT\FUNCTION
  *********************************************************************************************************************/
-
+#define TAEN 0
+#define TACDIR  4
+#define TATORIS 0
+#define CONCATENATE_TIMERS 0x00
+#define SPLIT_TIMERS 0x4
 /**********************************************************************************************************************
  *  LOCAL DATA
  *********************************************************************************************************************/
@@ -52,11 +56,6 @@ static volatile GPT_RegisterType *GPT_BASE_ADDRESS_TIMER[] =
 /**********************************************************************************************************************
  *  GLOBAL FUNCTIONS
  *********************************************************************************************************************/
-/*  GPTMTnMR
-    GPTMCFG
-    GPTMCTL
-    GPTMIMR
-    GPTMTAV*/
 
 /******************************************************************************
  * \Syntax          : void Gpt_Init(const Gpt_ConfigType* ConfigPtr)
@@ -72,15 +71,16 @@ void Gpt_Init(const Gpt_ConfigType *ConfigPtr, uint8 ConfigSize)
 {
 
     uint8 localCounter;
-    for(localCounter = 0; localCounter < ConfigSize; localCounter++)
+    for (localCounter = 0; localCounter < ConfigSize; localCounter++)
     {
-        CLR_BIT(GPT_BASE_ADDRESS_TIMER[ConfigPtr->ChannelID]->GPTMCTL, 0);
+        /* 1. Disable Channel */
+        CLR_BIT(GPT_BASE_ADDRESS_TIMER[ConfigPtr->ChannelID]->GPTMCTL, TAEN);
 
-        /* 2. Select Stand Alon Mode */
-        GPT_BASE_ADDRESS_TIMER[ConfigPtr->ChannelID]->GPTMCFG = 0x4;
+        /* 2. Select (individual, split timers) Mode */
+        GPT_BASE_ADDRESS_TIMER[ConfigPtr->ChannelID]->GPTMCFG = SPLIT_TIMERS;
 
         /* 3. Select Timer Direction (Count Up) */
-        SET_BIT(GPT_BASE_ADDRESS_TIMER[ConfigPtr->ChannelID]->GPTMTAMR, 4);
+        SET_BIT(GPT_BASE_ADDRESS_TIMER[ConfigPtr->ChannelID]->GPTMTAMR, TACDIR);
 
         /* 4. Select Timer Mode (One-Shot Timer mode, Periodic Timer mode) */
         GPT_BASE_ADDRESS_TIMER[ConfigPtr->ChannelID]->GPTMTAMR &= ~(0b11);
@@ -105,12 +105,14 @@ void Gpt_Init(const Gpt_ConfigType *ConfigPtr, uint8 ConfigSize)
 void Gpt_StartTimer(Gpt_ChannelType Channel, Gpt_ValueType Value)
 {
 
-    /* Load the value to the match value */
+    /* 1. Set tthe upper bound for the timeout event */
     GPT_BASE_ADDRESS_TIMER[Channel]->GPTMTAILR = Value;
-    SET_BET(GPT_BASE_ADDRESS_TIMER[Channel]->GPTMCTL, 0);
 
-    /* Polling till the value is matched */
-    while (GET_BIT(GPT_BASE_ADDRESS_TIMER[Channel]->GPTMRIS, 0) == 0)
+    /* 2. Enable Channel */
+    SET_BET(GPT_BASE_ADDRESS_TIMER[Channel]->GPTMCTL, TAEN);
+
+    /* 3. Poll Timeout */
+    while (GET_BIT(GPT_BASE_ADDRESS_TIMER[Channel]->GPTMRIS, TATORIS) == 0)
     {
     }
 }
@@ -127,7 +129,8 @@ void Gpt_StartTimer(Gpt_ChannelType Channel, Gpt_ValueType Value)
  *******************************************************************************/
 void Gpt_StopTimer(Gpt_ChannelType Channel)
 {
-    CLR_BET(GPT_BASE_ADDRESS_TIMER[Channel]->GPTMCTL, 0);
+    /* 1. Disable Channel */
+    CLR_BET(GPT_BASE_ADDRESS_TIMER[Channel]->GPTMCTL, TAEN);
 }
 
 Std_ReturnType Gpt_PredefTimerValue(Gpt_PredefTimerType PredefTimer, uint32 *TimerValuePtr)
