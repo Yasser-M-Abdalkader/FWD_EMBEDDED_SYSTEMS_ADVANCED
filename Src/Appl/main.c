@@ -5,17 +5,18 @@
 
 int main (void)
 {
-    Port_ConfigType Port_Config[PORT_PINS_NUMBER] = 
+    uint8 localActivePints = 1;
+    Port_ConfigType Port_Config[] = 
 {
     {
-        .PortPin = PA5,
+        .PortPin = PF1,
         .PortPinDirection = PORT_PIN_DIRECTION_OUTPUT,
-        .PortPinLevelValue = STD_HIGH,
+        .PortPinLevelValue = DIO_HIGH,
         .Port_PinOutputCurrent = PORT_DRV2,
         .Port_PinInternalAttach = PORT_DIS_RESISTOR,
     }
 };
-    Port_Init(Port_Config);
-    Dio_WriteChannel(PA5, STD_HIGH);
+    Port_Init(Port_Config, localActivePints);
+    Dio_WriteChannel(PF1, DIO_HIGH);
 		
 }

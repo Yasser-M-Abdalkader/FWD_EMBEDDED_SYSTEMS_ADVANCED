@@ -57,35 +57,6 @@
  *******************************************************************************/
 void Gpt_Init(const Gpt_ConfigType *ConfigPtr)
 {
-    /* Set Pre-defined timer Configuration */
-
-    /* Ensure the timer is disabled (the TnEN bit in the GPTMCTL register is cleared) before making
-        any changes. */
-    CLR_BIT(GPT_WIDE_TIMER0_BASE_ADDRESS->GPTMCTL, 0);
-    /* Write the GPTM Configuration Register (GPTMCFG) with a value of 0x0000.0000 */
-    GPT_WIDE_TIMER0_BASE_ADDRESS->GPTMCFG = 0x4;
-    GPT_WIDE_TIMER0_BASE_ADDRESS->GPTMTAMR &= ~(0b11);
-    GPT_WIDE_TIMER0_BASE_ADDRESS->GPTMTAMR |= (0x2);
-    /* GPTMTAR: GPTM TimerA REgister | GPTMTAV: GPTM Timer A Value  */
-    /* GPTMTAPR: GPTM Timer A Prescale */
-    /* GPTMTAMATCHR: GPTM Timer A Match */
-
-    /* Set GPTM Timer A Count Direction to Up Counts */
-    SET_BIT(GPT_WIDE_TIMER0_BASE_ADDRESS->GPTMTAMR, 4);
-
-    /* Configure the TnMR field in the GPTM Timer n Mode Register (GPTMTnMR):
-        Write a value of 0x1 for One-Shot mode.
-        Write a value of 0x2 for Periodic mode. */
-    /* Optionally configure the TnSNAPS, TnWOT, TnMTE, and TnCDIR bits in the GPTMTnMR register
-to select whether to capture the value of the free-running timer at time-out, use an external
-trigger to start counting, configure an additional trigger or interrupt, and count up or down */
-    /* If interrupts are required, set the appropriate bits in the GPTM Interrupt Mask Register
-(GPTMIMR). */
-    /* Set the TnEN bit in the GPTMCTL register to enable the timer and start counting */
-    SET_BIT(GPT_WIDE_TIMER0_BASE_ADDRESS->GPTMCTL, 0);
-    /* Poll the GPTMRIS register or wait for the interrupt to be generated (if enabled). In both cases,
-the status flags are cleared by writing a 1 to the appropriate bit of the GPTM Interrupt Clear
-Register (GPTMICR). */
 
     switch (ConfigPtr->ChannelID)
     {
