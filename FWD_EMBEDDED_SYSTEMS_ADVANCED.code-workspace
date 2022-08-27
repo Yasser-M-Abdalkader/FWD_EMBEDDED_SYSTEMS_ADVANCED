@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"iostream": "cpp",
+			"platform_types.h": "c",
+			"intctrl.h": "c"
+		}
+	}
+}
