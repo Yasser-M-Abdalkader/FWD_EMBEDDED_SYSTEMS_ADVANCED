@@ -87,19 +87,19 @@ typedef struct
 #define CORTEXM4_PERI_BASE_ADDRESS 0xE000E000
 #define SYSCTRL_BASE_ADDRESS 0x400FE000
 
-#define GPT_TIMER0_BASE_ADDRESS (((volatile GPT_RegisterType *)0x40030000))
-#define GPT_TIMER1_BASE_ADDRESS (((volatile GPT_RegisterType *)0x40031000))
-#define GPT_TIMER2_BASE_ADDRESS (((volatile GPT_RegisterType *)0x40032000))
-#define GPT_TIMER3_BASE_ADDRESS (((volatile GPT_RegisterType *)0x40033000))
-#define GPT_TIMER4_BASE_ADDRESS (((volatile GPT_RegisterType *)0x40034000))
-#define GPT_TIMER5_BASE_ADDRESS (((volatile GPT_RegisterType *)0x40035000))
+#define GPT_TIMER0_BASE_ADDRESS 0x40030000
+#define GPT_TIMER1_BASE_ADDRESS 0x40031000
+#define GPT_TIMER2_BASE_ADDRESS 0x40032000
+#define GPT_TIMER3_BASE_ADDRESS 0x40033000
+#define GPT_TIMER4_BASE_ADDRESS 0x40034000
+#define GPT_TIMER5_BASE_ADDRESS 0x40035000
 
-#define GPT_WIDE_TIMER0_BASE_ADDRESS (((volatile GPT_RegisterType *)0x40036000))
-#define GPT_WIDE_TIMER1_BASE_ADDRESS (((volatile GPT_RegisterType *)0x40037000))
-#define GPT_WIDE_TIMER2_BASE_ADDRESS (((volatile GPT_RegisterType *)0x4004C000))
-#define GPT_WIDE_TIMER3_BASE_ADDRESS (((volatile GPT_RegisterType *)0x4004D000))
-#define GPT_WIDE_TIMER4_BASE_ADDRESS (((volatile GPT_RegisterType *)0x4004E000))
-#define GPT_WIDE_TIMER5_BASE_ADDRESS (((volatile GPT_RegisterType *)0x4004F000))
+#define GPT_WIDE_TIMER0_BASE_ADDRESS 0x40036000
+#define GPT_WIDE_TIMER1_BASE_ADDRESS 0x40037000
+#define GPT_WIDE_TIMER2_BASE_ADDRESS 0x4004C000
+#define GPT_WIDE_TIMER3_BASE_ADDRESS 0x4004D000
+#define GPT_WIDE_TIMER4_BASE_ADDRESS 0x4004E000
+#define GPT_WIDE_TIMER5_BASE_ADDRESS 0x4004F000
 
 #define APINT *((volatile uint32 *)(CORTEXM4_PERI_BASE_ADDRESS + 0xD0C))
 #define PRI ((volatile INTCTRL_PRI *)(CORTEXM4_PERI_BASE_ADDRESS + 0x400))
@@ -146,7 +146,7 @@ typedef struct
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
  *********************************************************************************************************************/
-#define ACCESS_REGISTER(PERIPHERAL_BASE_ADDRESS, REGISTER) (*(uint32 *)((PERIPHERAL_BASE_ADDRESS) + (REGISTER)))
+#define ACCESS_REGISTER(PERIPHERAL_BASE_ADDRESS, REGISTER) (*(volatile uint32 *)((PERIPHERAL_BASE_ADDRESS) + (REGISTER)))
 
 /**********************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES

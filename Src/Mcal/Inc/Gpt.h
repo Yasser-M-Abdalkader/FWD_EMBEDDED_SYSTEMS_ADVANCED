@@ -41,7 +41,7 @@
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
-void Gpt_Init(const Gpt_ConfigType* ConfigPtr);
+void Gpt_Init(const Gpt_ConfigType *ConfigPtr, uint8 ConfigSize);
 
 void Gpt_StartTimer(Gpt_ChannelType Channel, Gpt_ValueType Value);
 
