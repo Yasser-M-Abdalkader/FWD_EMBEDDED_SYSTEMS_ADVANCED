@@ -315,132 +315,132 @@ void Gpt_StartTimer(Gpt_ChannelType Channel, Gpt_ValueType Value)
     {
     case TIMER0:
         /* Load the value to the match value */
-        GPT_TIMER0_BASE_ADDRESS->GPTMTAMATCHR = Value;
+        GPT_TIMER0_BASE_ADDRESS->GPTMTAILR = Value;
         SET_BET(GPT_TIMER0_BASE_ADDRESS->GPTMCTL, 0);
 
         /* Polling till the value is matched */
-        while (GET_BIT(GPT_TIMER0_BASE_ADDRESS->GPTMRIS, 1) == 0)
+        while (GET_BIT(GPT_TIMER0_BASE_ADDRESS->GPTMRIS, 0) == 0)
         {
             /* code */
         }
         break;
     case TIMER1:
         /* Load the value to the match value */
-        GPT_TIMER1_BASE_ADDRESS->GPTMTAMATCHR = Value;
+        GPT_TIMER1_BASE_ADDRESS->GPTMTAILR = Value;
         SET_BET(GPT_TIMER1_BASE_ADDRESS->GPTMCTL, 0);
 
         /* Polling till the value is matched */
-        while (GET_BIT(GPT_TIMER1_BASE_ADDRESS->GPTMRIS, 1) == 0)
+        while (GET_BIT(GPT_TIMER1_BASE_ADDRESS->GPTMRIS, 0) == 0)
         {
             /* code */
         }
         break;
     case TIMER2:
         /* Load the value to the match value */
-        GPT_TIMER2_BASE_ADDRESS->GPTMTAMATCHR = Value;
+        GPT_TIMER2_BASE_ADDRESS->GPTMTAILR = Value;
         SET_BET(GPT_TIMER2_BASE_ADDRESS->GPTMCTL, 0);
 
         /* Polling till the value is matched */
-        while (GET_BIT(GPT_TIMER2_BASE_ADDRESS->GPTMRIS, 1) == 0)
+        while (GET_BIT(GPT_TIMER2_BASE_ADDRESS->GPTMRIS, 0) == 0)
         {
             /* code */
         }
         break;
     case TIMER3:
         /* Load the value to the match value */
-        GPT_TIMER3_BASE_ADDRESS->GPTMTAMATCHR = Value;
+        GPT_TIMER3_BASE_ADDRESS->GPTMTAILR = Value;
         SET_BET(GPT_TIMER3_BASE_ADDRESS->GPTMCTL, 0);
 
         /* Polling till the value is matched */
-        while (GET_BIT(GPT_TIMER3_BASE_ADDRESS->GPTMRIS, 1) == 0)
+        while (GET_BIT(GPT_TIMER3_BASE_ADDRESS->GPTMRIS, 0) == 0)
         {
             /* code */
         }
         break;
     case TIMER4:
         /* Load the value to the match value */
-        GPT_TIMER4_BASE_ADDRESS->GPTMTAMATCHR = Value;
+        GPT_TIMER4_BASE_ADDRESS->GPTMTAILR = Value;
         SET_BET(GPT_TIMER4_BASE_ADDRESS->GPTMCTL, 0);
 
         /* Polling till the value is matched */
-        while (GET_BIT(GPT_TIMER4_BASE_ADDRESS->GPTMRIS, 1) == 0)
+        while (GET_BIT(GPT_TIMER4_BASE_ADDRESS->GPTMRIS, 0) == 0)
         {
             /* code */
         }
         break;
     case TIMER5:
         /* Load the value to the match value */
-        GPT_TIMER5_BASE_ADDRESS->GPTMTAMATCHR = Value;
+        GPT_TIMER5_BASE_ADDRESS->GPTMTAILR = Value;
         SET_BET(GPT_TIMER5_BASE_ADDRESS->GPTMCTL, 0);
 
         /* Polling till the value is matched */
-        while (GET_BIT(GPT_TIMER5_BASE_ADDRESS->GPTMRIS, 1) == 0)
+        while (GET_BIT(GPT_TIMER5_BASE_ADDRESS->GPTMRIS, 0) == 0)
         {
             /* code */
         }
         break;
     case WIDE_TIMER0:
         /* Load the value to the match value */
-        GPT_WIDE_TIMER0_BASE_ADDRESS->GPTMTAMATCHR = Value;
+        GPT_WIDE_TIMER0_BASE_ADDRESS->GPTMTAILR = Value;
         SET_BET(GPT_WIDE_TIMER0_BASE_ADDRESS->GPTMCTL, 0);
 
         /* Polling till the value is matched */
-        while (GET_BIT(GPT_WIDE_TIMER0_BASE_ADDRESS->GPTMRIS, 1) == 0)
+        while (GET_BIT(GPT_WIDE_TIMER0_BASE_ADDRESS->GPTMRIS, 0) == 0)
         {
             /* code */
         }
         break;
     case WIDE_TIMER1:
         /* Load the value to the match value */
-        GPT_WIDE_TIMER1_BASE_ADDRESS->GPTMTAMATCHR = Value;
+        GPT_WIDE_TIMER1_BASE_ADDRESS->GPTMTAILR = Value;
         SET_BET(GPT_WIDE_TIMER1_BASE_ADDRESS->GPTMCTL, 0);
 
         /* Polling till the value is matched */
-        while (GET_BIT(GPT_WIDE_TIMER1_BASE_ADDRESS->GPTMRIS, 1) == 0)
+        while (GET_BIT(GPT_WIDE_TIMER1_BASE_ADDRESS->GPTMRIS, 0) == 0)
         {
             /* code */
         }
         break;
     case WIDE_TIMER2:
         /* Load the value to the match value */
-        GPT_WIDE_TIMER2_BASE_ADDRESS->GPTMTAMATCHR = Value;
+        GPT_WIDE_TIMER2_BASE_ADDRESS->GPTMTAILR = Value;
         SET_BET(GPT_WIDE_TIMER2_BASE_ADDRESS->GPTMCTL, 0);
 
         /* Polling till the value is matched */
-        while (GET_BIT(GPT_WIDE_TIMER2_BASE_ADDRESS->GPTMRIS, 1) == 0)
+        while (GET_BIT(GPT_WIDE_TIMER2_BASE_ADDRESS->GPTMRIS, 0) == 0)
         {
             /* code */
         }
         break;
     case WIDE_TIMER3:
         /* Load the value to the match value */
-        GPT_WIDE_TIMER3_BASE_ADDRESS->GPTMTAMATCHR = Value;
+        GPT_WIDE_TIMER3_BASE_ADDRESS->GPTMTAILR = Value;
         SET_BET(GPT_WIDE_TIMER3_BASE_ADDRESS->GPTMCTL, 0);
 
         /* Polling till the value is matched */
-        while (GET_BIT(GPT_WIDE_TIMER3_BASE_ADDRESS->GPTMRIS, 1) == 0)
+        while (GET_BIT(GPT_WIDE_TIMER3_BASE_ADDRESS->GPTMRIS, 0) == 0)
         {
             /* code */
         }
         break;
     case WIDE_TIMER4:
         /* Load the value to the match value */
-        GPT_WIDE_TIMER4_BASE_ADDRESS->GPTMTAMATCHR = Value;
+        GPT_WIDE_TIMER4_BASE_ADDRESS->GPTMTAILR = Value;
         SET_BET(GPT_WIDE_TIMER4_BASE_ADDRESS->GPTMCTL, 0);
 
         /* Polling till the value is matched */
-        while (GET_BIT(GPT_WIDE_TIMER4_BASE_ADDRESS->GPTMRIS, 1) == 0)
+        while (GET_BIT(GPT_WIDE_TIMER4_BASE_ADDRESS->GPTMRIS, 0) == 0)
         {
             /* code */
         }
         break;
     case WIDE_TIMER5:
         /* Load the value to the match value */
-        GPT_WIDE_TIMER5_BASE_ADDRESS->GPTMTAMATCHR = Value;
+        GPT_WIDE_TIMER5_BASE_ADDRESS->GPTMTAILR = Value;
         SET_BET(GPT_WIDE_TIMER5_BASE_ADDRESS->GPTMCTL, 0);
 
         /* Polling till the value is matched */
-        while (GET_BIT(GPT_WIDE_TIMER5_BASE_ADDRESS->GPTMRIS, 1) == 0)
+        while (GET_BIT(GPT_WIDE_TIMER5_BASE_ADDRESS->GPTMRIS, 0) == 0)
         {
             /* code */
         }
