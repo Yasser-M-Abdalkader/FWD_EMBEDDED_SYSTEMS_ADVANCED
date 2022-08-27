@@ -23,7 +23,15 @@
 /**********************************************************************************************************************
  *  LOCAL DATA
  *********************************************************************************************************************/
-
+static uint32 Port_PortsAddress[] =
+    {
+        GPIOA_BASE_ADDRESS,
+        GPIOB_BASE_ADDRESS,
+        GPIOC_BASE_ADDRESS,
+        GPIOD_BASE_ADDRESS,
+        GPIOE_BASE_ADDRESS,
+        GPIOF_BASE_ADDRESS,
+};
 /**********************************************************************************************************************
  *  GLOBAL DATA
  *********************************************************************************************************************/
@@ -41,113 +49,32 @@
  *********************************************************************************************************************/
 void Dio_WriteChannel(Dio_ChannelType ChannelId, Dio_LevelType Level)
 {
-    uint8 uint16LocalPortID = ChannelId / 8;
+    uint8 uint8LocalPortID = ChannelId / 8;
     uint8 uint16LocalPinNumber = ChannelId % 8;
-
-    switch (uint16LocalPortID)
-    {
-    case DIO_PORTA:
-        *((volatile uint32 *)(PORTA_GPIODATA + (1 << (uint16LocalPinNumber + 2)))) = Level << uint16LocalPinNumber;
-        break;
-    case DIO_PORTB:
-        *((volatile uint32 *)(PORTB_GPIODATA + (1 << (uint16LocalPinNumber + 2)))) = Level << uint16LocalPinNumber;
-        break;
-    case DIO_PORTC:
-        *((volatile uint32 *)(PORTC_GPIODATA + (1 << (uint16LocalPinNumber + 2)))) = Level << uint16LocalPinNumber;
-        break;
-    case DIO_PORTD:
-        *((volatile uint32 *)(PORTD_GPIODATA + (1 << (uint16LocalPinNumber + 2)))) = Level << uint16LocalPinNumber;
-        break;
-    case DIO_PORTE:
-        *((volatile uint32 *)(PORTE_GPIODATA + (1 << (uint16LocalPinNumber + 2)))) = Level << uint16LocalPinNumber;
-        break;
-    case DIO_PORTF:
-        *((volatile uint32 *)(PORTF_GPIODATA + (1 << (uint16LocalPinNumber + 2)))) = Level << uint16LocalPinNumber;
-        break;
-    }
+    *((volatile uint32 *)(ACCESS_REGISTER(Port_PortsAddress[uint8LocalPortID], GPIODATA) + (1 << (uint16LocalPinNumber + 2)))) = Level << uint16LocalPinNumber;
 }
 
 void Dio_WritePort(Dio_PortType PortlId, Dio_PortLevelType Level)
 {
-    uint8 uint8LocalPortID = PortlId / 8;
-    switch (uint8LocalPortID)
-    {
-    case DIO_PORTA:
-        *((uint32 *)(PORTA_GPIODATA + (0xff << 2))) = Level;
-        break;
-    case DIO_PORTB:
-        *((uint32 *)(PORTB_GPIODATA + (0xff << 2))) = Level;
-        break;
-    case DIO_PORTC:
-        *((uint32 *)(PORTC_GPIODATA + (0xff << 2))) = Level;
-        break;
-    case DIO_PORTD:
-        *((uint32 *)(PORTD_GPIODATA + (0xff << 2))) = Level;
-        break;
-    case DIO_PORTE:
-        *((uint32 *)(PORTE_GPIODATA + (0xff << 2))) = Level;
-        break;
-    case DIO_PORTF:
-        *((uint32 *)(PORTF_GPIODATA + (0xff << 2))) = Level;
-        break;
-    }
+    *((uint32 *)(ACCESS_REGISTER(Port_PortsAddress[PortlId], GPIODATA) + (0xff << 2))) = Level;
 }
 
 Dio_LevelType Dio_ReadChannel(Dio_ChannelType ChannelId)
 {
+    Dio_LevelType localChannelLevel = DIO_LOW;
     uint8 uint8LocalPortID = ChannelId / 8;
     uint8 uint8LocalPinNumber = ChannelId % 8;
+    
+    localChannelLevel = (*((uint32 *)(ACCESS_REGISTER(Port_PortsAddress[uint8LocalPortID], GPIODATA) + (1 << (uint8LocalPinNumber + 2))))) >> uint8LocalPinNumber;
 
-    Dio_LevelType localChannelLevel = DIO_LOW;
-    switch (uint8LocalPortID)
-    {
-    case DIO_PORTA:
-        localChannelLevel = (*((uint32 *)(PORTA_GPIODATA + (1 << (uint8LocalPinNumber + 2))))) >> uint8LocalPinNumber;
-        break;
-    case DIO_PORTB:
-        localChannelLevel = (*((uint32 *)(PORTB_GPIODATA + (1 << (uint8LocalPinNumber + 2))))) >> uint8LocalPinNumber;
-        break;
-    case DIO_PORTC:
-        localChannelLevel = (*((uint32 *)(PORTC_GPIODATA + (1 << (uint8LocalPinNumber + 2))))) >> uint8LocalPinNumber;
-        break;
-    case DIO_PORTD:
-        localChannelLevel = (*((uint32 *)(PORTD_GPIODATA + (1 << (uint8LocalPinNumber + 2))))) >> uint8LocalPinNumber;
-        break;
-    case DIO_PORTE:
-        localChannelLevel = (*((uint32 *)(PORTE_GPIODATA + (1 << (uint8LocalPinNumber + 2))))) >> uint8LocalPinNumber;
-        break;
-    case DIO_PORTF:
-        localChannelLevel = (*((uint32 *)(PORTF_GPIODATA + (1 << (uint8LocalPinNumber + 2))))) >> uint8LocalPinNumber;
-        break;
-    }
     return localChannelLevel;
 }
 
 Dio_PortLevelType Dio_ReadPort(Dio_PortType PortId)
 {
-    uint8 uint8LocalPortID = PortId / 8;
     Dio_PortLevelType localPortLevel = 0x00;
-    switch (uint8LocalPortID)
-    {
-    case DIO_PORTA:
-        localPortLevel = *((uint32 *)(PORTA_GPIODATA + ( (0xff << 2))));
-        break;
-    case DIO_PORTB:
-        localPortLevel = *((uint32 *)(PORTB_GPIODATA + ((0xff << 2))));
-        break;
-    case DIO_PORTC:
-        localPortLevel = *((uint32 *)(PORTC_GPIODATA + ((0xff << 2))));
-        break;
-    case DIO_PORTD:
-        localPortLevel = *((uint32 *)(PORTD_GPIODATA + ((0xff << 2))));
-        break;
-    case DIO_PORTE:
-        localPortLevel = *((uint32 *)(PORTE_GPIODATA + ((0xff << 2))));
-        break;
-    case DIO_PORTF:
-        localPortLevel = *((uint32 *)(PORTF_GPIODATA + ((0xff << 2))));
-        break;
-    }
+
+    localPortLevel = *((uint32 *)(ACCESS_REGISTER(Port_PortsAddress[PortId], GPIODATA) + ((0xff << 2))));
 
     return localPortLevel;
 }
